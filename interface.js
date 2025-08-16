@@ -42,7 +42,8 @@ function defineLocationSpecifics(specifics) {
 function baseInterfaceBattleButton(battleInfo) { //type, text, enemies
     let fightButton = document.createElement('button');
     fightButton.innerHTML = battleInfo.text
-    fightButton.click = () => {
+    fightButton.onclick = () => {
+        startBattle(battleInfo.enemies)
     }
     mainInterface.appendChild(fightButton);
 }
@@ -69,4 +70,19 @@ function defineLocationOptions(options) {
 
         interfaceLocationOptions.appendChild(button)
     });
+}
+
+function battleInterface(enemy, log) {
+    mainInterface.innerHTML = "";
+    let playerInfo = document.createElement('p');
+    let enemyInfo = document.createElement('p');
+    let battleLog = document.createElement('p');
+
+    playerInfo.innerHTML = `${character.name} HP: ${character.health}`;
+    enemyInfo.innerHTML = `${enemy.name} HP: ${enemy.health}`;
+    battleLog.innerHTML = log;
+
+    mainInterface.appendChild(playerInfo);
+    mainInterface.appendChild(enemyInfo);
+    mainInterface.appendChild(battleLog);
 }

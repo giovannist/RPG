@@ -8,6 +8,9 @@ class Character {
     health = 100;
     maxHealth = 100;
 
+    experience = 0;
+    maxExperience = 10;
+
     getEquipmentInfo() {
         console.log(this.equippedWeapon, this.equippedChestplate, this.health);
     }
@@ -37,4 +40,4 @@ class Character {
     }
 }
 
-const character = new Character;
+const character = new Character("Adventurer");
