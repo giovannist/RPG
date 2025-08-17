@@ -2,6 +2,7 @@
 const interfacePlayerHealth = document.getElementById('player-health')
 const interfacePlayerWeapon = document.getElementById('player-equipped-weapon');
 const interfacePlayerChestplate = document.getElementById('player-equipped-chestplate');
+const interfacePlayerExperience = document.getElementById('player-experience');
 // Location Information
 const interfaceLocationCurrent = document.getElementById('current-location');
 const interfaceLocationDescription = document.getElementById('location-description')
@@ -15,6 +16,7 @@ function updatePlayerInterface() {
     interfacePlayerHealth.innerHTML = `${character.health}/${character.maxHealth}`
     interfacePlayerWeapon.innerHTML = character.equippedWeapon.name
     interfacePlayerChestplate.innerHTML = `${character.equippedChestplate}`
+    interfacePlayerExperience.innerHTML = `${character.experience}/${character.maxExperience}`
 }
 
 function updateLocationInterface(name, description, options, specifics) {
@@ -73,6 +75,10 @@ function defineLocationOptions(options) {
 }
 
 function battleInterface(enemy, log) {
+    let locationOptions = interfaceLocationOptions.children
+    for (let i = 0; i < locationOptions.length; i++) {
+        locationOptions[i].disabled = true;
+    }
     mainInterface.innerHTML = "";
     let playerInfo = document.createElement('p');
     let enemyInfo = document.createElement('p');
@@ -85,4 +91,11 @@ function battleInterface(enemy, log) {
     mainInterface.appendChild(playerInfo);
     mainInterface.appendChild(enemyInfo);
     mainInterface.appendChild(battleLog);
+}
+
+function interfaceBattleEnd() {
+    let locationOptions = interfaceLocationOptions.children
+    for (let i = 0; i < locationOptions.length; i++) {
+        locationOptions[i].disabled = false;
+    }
 }

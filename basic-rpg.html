@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-
+        .main-screen {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -200px;
+        }
     </style>
 </head>
 
@@ -14,6 +20,9 @@
     <div id="player-info">
         <span>HP:
             <span id="player-health"></span>
+            <br>EXP:
+            <span id="player-experience">
+            </span>
         </span>
         <br>
         <span>Weapon:
@@ -36,7 +45,7 @@
     <div id="location-options">
     </div>
 
-    <div id="main-interface"></div>
+    <div id="main-interface" class="main-screen"></div>
 
     <div id="inventory"></div>
 
