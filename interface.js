@@ -19,6 +19,9 @@ function updatePlayerInterface() {
     interfacePlayerExperience.innerHTML = `${character.experience}/${character.maxExperience}`
 }
 
+
+//LOCATIONS INTERFACE/////////////////////////////////////////////////////////////////////////////
+
 function updateLocationInterface(name, description, options, specifics) {
     interfaceLocationCurrent.innerHTML = name;
     interfaceLocationDescription.innerHTML = description;
@@ -59,6 +62,7 @@ function baseInterfaceNPCButton(NPC) {
     mainInterface.appendChild(dialogue)
 }
 
+
 function defineLocationOptions(options) {
     interfaceLocationOptions.innerHTML = '';
 
@@ -73,6 +77,10 @@ function defineLocationOptions(options) {
         interfaceLocationOptions.appendChild(button)
     });
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// BATTLE INTERFACE////////////////////////////////////////////////////////////////////////////////
 
 function battleInterface(enemy, log) {
     let locationOptions = interfaceLocationOptions.children
@@ -93,9 +101,27 @@ function battleInterface(enemy, log) {
     mainInterface.appendChild(battleLog);
 }
 
-function interfaceBattleEnd() {
-    let locationOptions = interfaceLocationOptions.children
-    for (let i = 0; i < locationOptions.length; i++) {
-        locationOptions[i].disabled = false;
+function interfaceBattleEnd(experience) {
+    let continueButton = document.createElement('button');
+    continueButton.innerHTML = "Continue";
+
+    let lootInfo = document.createElement('p');
+    lootInfo.innerHTML = `You win! +${experience} experience`;
+
+    mainInterface.appendChild(lootInfo);
+    mainInterface.appendChild(continueButton);
+
+    continueButton.onclick = () => {
+        let locationOptions = interfaceLocationOptions.children
+        for (let i = 0; i < locationOptions.length; i++) { // Enabling Location Buttons
+            locationOptions[i].disabled = false;
+        }
+        clearMainInterface();
     }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+function clearMainInterface() {
+    mainInterface.innerHTML = "";
 }

@@ -15,7 +15,7 @@ function startBattle(enemyInfo) {
 function playerTurn() {
     enemy.health -= playerDamage;
 
-    let log = `${enemy.name} is now at ${enemy.health}/${enemy.maxHealth} hp`
+    let log = `${enemy.name} received ${playerDamage} damage!`
     battleInterface(enemy, log);
 
     setTimeout(() => {
@@ -26,14 +26,15 @@ function playerTurn() {
         }
         enemyTurn()
     }, 2000);
-
 }
 
 function enemyTurn() {
     character.health -= enemy.damage;
 
-    let log = `${character.name} is now at ${character.health}/${character.maxHealth} hp`
+    let log = `${character.name} received ${enemy.damage} damage!`
     battleInterface(enemy, log);
+    updatePlayerInterface();
+
 
     setTimeout(() => {
         if (enemy.health < 1) {
@@ -45,5 +46,8 @@ function enemyTurn() {
 }
 
 function battleEnd(winner) {
-    interfaceBattleEnd();
-}
+    enemy.health = enemy.maxHealth;
+    character.experience += enemy.experience;
+    updatePlayerInterface();
+    interfaceBattleEnd(enemy.experience);
+}   

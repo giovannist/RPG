@@ -1,13 +1,9 @@
 // TASK LIST
 
-// MAKE IT SO BATTLES GIVE YOU EXP
-//MAKE INVENTORY    
-//MAKE GOLD VARIABLE
-//MAKE SHOP
-
-
-
-
+// INVENTORY    
+// GOLD VARIABLE
+// SHOP
+// LEVEL UP SYSTEM
 
 updateLocationInterface(tavern.name, tavern.description, tavern.options);
 
