@@ -5,10 +5,12 @@ class Item {
 // Base Item Types
 class Weapon extends Item {
     type = "Weapon";
+    equippable = true;
 }
 
 class Chestplate extends Item {
     type = "Chestplate"
+    equippable = true;
 }
 //
 
@@ -32,6 +34,6 @@ class IronChestplate extends Chestplate {
 
 // Item Instantiation 
 const sword = new Sword;
-const chestplate = new Chestplate
+const ironChestplate = new IronChestplate
 const lance = new Lance;
 //

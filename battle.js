@@ -20,7 +20,8 @@ function playerTurn() {
 
     setTimeout(() => {
         if (enemy.health < 1) {
-            battleEnd();
+            enemy.health = 0
+            battleEnd("Player");
             console.log(`The ${enemy.name} has been defeated!`)
             return;
         }
@@ -41,13 +42,17 @@ function enemyTurn() {
             battleEnd();
             return;
         }
-        playerTurn(enemy, playerDamage)
+        playerTurn()
     }, 2000);
 }
 
 function battleEnd(winner) {
-    enemy.health = enemy.maxHealth;
-    character.experience += enemy.experience;
-    updatePlayerInterface();
-    interfaceBattleEnd(enemy.experience);
-}   
+    if (winner === "Player") {
+        enemy.health = enemy.maxHealth;
+        character.experience += enemy.experience;
+        updatePlayerInterface();
+        interfaceBattleEnd(enemy.experience);
+    }
+    else {
+    }
+}

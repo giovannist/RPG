@@ -8,14 +8,14 @@ const interfaceLocationCurrent = document.getElementById('current-location');
 const interfaceLocationDescription = document.getElementById('location-description')
 const interfaceLocationOptions = document.getElementById('location-options')
 //Inventory
-const interfaceInventory = document.getElementById('inventory')
+const interfaceInventory = document.getElementById('open-inventory-button')
 //
 const mainInterface = document.getElementById('main-interface')
 
 function updatePlayerInterface() {
     interfacePlayerHealth.innerHTML = `${character.health}/${character.maxHealth}`
-    interfacePlayerWeapon.innerHTML = character.equippedWeapon.name
-    interfacePlayerChestplate.innerHTML = `${character.equippedChestplate}`
+    interfacePlayerWeapon.innerHTML = `${character.equippedWeapon?.name ?? "None"}`
+    interfacePlayerChestplate.innerHTML = `${character.equippedChestplate?.name ?? "None"}`
     interfacePlayerExperience.innerHTML = `${character.experience}/${character.maxExperience}`
 }
 
@@ -81,12 +81,13 @@ function defineLocationOptions(options) {
 
 
 // BATTLE INTERFACE////////////////////////////////////////////////////////////////////////////////
-
 function battleInterface(enemy, log) {
-    let locationOptions = interfaceLocationOptions.children
-    for (let i = 0; i < locationOptions.length; i++) {
-        locationOptions[i].disabled = true;
-    }
+
+    // Disabling Buttons
+    disableEnableLocationButtons("Disable")
+
+    interfaceInventory.disabled = true;
+    // End
     mainInterface.innerHTML = "";
     let playerInfo = document.createElement('p');
     let enemyInfo = document.createElement('p');
@@ -112,16 +113,73 @@ function interfaceBattleEnd(experience) {
     mainInterface.appendChild(continueButton);
 
     continueButton.onclick = () => {
-        let locationOptions = interfaceLocationOptions.children
-        for (let i = 0; i < locationOptions.length; i++) { // Enabling Location Buttons
-            locationOptions[i].disabled = false;
-        }
+        disableEnableLocationButtons("Enable");
+        interfaceInventory.disabled = false;
         clearMainInterface();
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// INVENTORY ///////////////////////////////////////////////////////////////////////////////////////
+let open = false;
 
+interfaceInventory.onclick = () => {
+    if (open) {
+        interfaceInventory.innerHTML = "Open Inventory";
+        open = false;
+        mainInterface.innerHTML = "";
+        disableEnableLocationButtons("Enable")
+    }
+    else {
+        interfaceInventory.innerHTML = "Close Inventory";
+        open = true;
+        createInventoryInterface();
+        disableEnableLocationButtons("Disable")
+    }
+}
+
+
+function createInventoryInterface() {
+    mainInterface.innerHTML = "";
+    let itemList = document.createElement('div');
+
+    character.inventory.items.forEach(item => {
+        let itemDivision = document.createElement('div');
+        let itemInfo = document.createElement('span');
+        let equipButton = document.createElement('button')
+
+        itemInfo.innerHTML = `${item.name} x${item.quantity}`
+        equipButton.innerHTML = "Equip"
+
+        equipButton.onclick = () => {
+            character.equipItem(item);
+            createInventoryInterface();
+            updatePlayerInterface();
+        }
+        itemDivision.appendChild(itemInfo);
+        itemDivision.appendChild(equipButton);
+        mainInterface.appendChild(itemDivision);
+    });
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// GENERAL UTILITY
 function clearMainInterface() {
     mainInterface.innerHTML = "";
+}
+
+function disableEnableLocationButtons(option) {
+    let locationOptions = interfaceLocationOptions.children
+
+    if (option === "Enable") {
+        for (let i = 0; i < locationOptions.length; i++) {
+            locationOptions[i].disabled = false;
+        }
+    }
+    else {
+        for (let i = 0; i < locationOptions.length; i++) {
+            locationOptions[i].disabled = true;
+        }
+    }
 }
