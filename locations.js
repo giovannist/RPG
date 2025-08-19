@@ -26,7 +26,11 @@ class Shop extends BaseLocation {
     description = "It's a Shop";
     options = [
         { name: "Tavern", click: () => { nextLocation("Tavern") } },
-        { name: "City Center", click: () => { nextLocation("City Center") } }
+        { name: "City Center", click: () => { nextLocation("City Center") } },
+        specifics = [
+            { type: "Shop", text: "Open Shop" }  //Type, Text, Enemies
+        ]
+
     ]
 }
 

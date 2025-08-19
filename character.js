@@ -56,6 +56,14 @@ class Character {
                 console.log("Not a valid item type, too bad!")
         }
     }
+
+    healHealth(amount) {
+        character.health += amount;
+        if (character.health > character.maxHealth) {
+            character.health = character.maxHealth;
+        }
+    }
+
     //
 }
 

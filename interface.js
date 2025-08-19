@@ -43,9 +43,17 @@ function defineLocationSpecifics(specifics) {
             else if (element.type === "Battle") {
                 baseInterfaceBattleButton(element)  //Type, Text, Enemies
             }
+            else if (element.type === "Shop") {
+                baseInterfaceShopButton(element)
+            }
         });
     }
 }
+
+function baseInterfaceShopButton(shop) {
+    let shopButton = document.createElement('button');
+}
+
 
 function baseInterfaceBattleButton(battleInfo) { //type, text, enemies
     let fightButton = document.createElement('button');
@@ -187,3 +195,4 @@ function disableEnableLocationButtons(option) {
         }
     }
 }
+//

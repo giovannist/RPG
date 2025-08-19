@@ -10,8 +10,13 @@ class Weapon extends Item {
 }
 
 class Chestplate extends Item {
-    type = "Chestplate"
+    type = "Chestplate";
     equippable = true;
+}
+class Consumable extends Item {
+    type = "Consumable";
+    use(item) {
+    }
 }
 //
 
@@ -42,6 +47,16 @@ class RatMeat {
     value = 1;
 }
 const ratMeat = new RatMeat;
+//
+
+
+// Consumables
+class healthPotion extends Consumable {
+    amount = 20;
+    use(amount) {
+        character.healHealth(amount);
+    }
+}
 //
 
 // Enemy Loot
