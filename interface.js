@@ -3,6 +3,8 @@ const interfacePlayerHealth = document.getElementById('player-health')
 const interfacePlayerWeapon = document.getElementById('player-equipped-weapon');
 const interfacePlayerChestplate = document.getElementById('player-equipped-chestplate');
 const interfacePlayerExperience = document.getElementById('player-experience');
+const interfacePlayerGold = document.getElementById('player-gold');
+const interfacePlayerCharacter = document.getElementById('player-character');
 // Location Information
 const interfaceLocationCurrent = document.getElementById('current-location');
 const interfaceLocationDescription = document.getElementById('location-description')
@@ -17,17 +19,19 @@ function updatePlayerInterface() {
     interfacePlayerWeapon.innerHTML = `${character.equippedWeapon?.name ?? "None"}`
     interfacePlayerChestplate.innerHTML = `${character.equippedChestplate?.name ?? "None"}`
     interfacePlayerExperience.innerHTML = `${character.experience}/${character.maxExperience}`
+    interfacePlayerGold.innerHTML = character.gold;
+    interfacePlayerCharacter.innerHTML = `${character.name}, Level ${character.level}`
 }
 
 
 //LOCATIONS INTERFACE/////////////////////////////////////////////////////////////////////////////
-
 function updateLocationInterface(name, description, options, specifics) {
     interfaceLocationCurrent.innerHTML = name;
     interfaceLocationDescription.innerHTML = description;
     defineLocationOptions(options);
     defineLocationSpecifics(specifics)
 }
+
 
 function defineLocationSpecifics(specifics) {
     mainInterface.innerHTML = "";
@@ -41,7 +45,6 @@ function defineLocationSpecifics(specifics) {
             }
         });
     }
-
 }
 
 function baseInterfaceBattleButton(battleInfo) { //type, text, enemies
@@ -52,6 +55,7 @@ function baseInterfaceBattleButton(battleInfo) { //type, text, enemies
     }
     mainInterface.appendChild(fightButton);
 }
+
 
 function baseInterfaceNPCButton(NPC) {
     let name = document.createElement('p');
@@ -102,12 +106,12 @@ function battleInterface(enemy, log) {
     mainInterface.appendChild(battleLog);
 }
 
-function interfaceBattleEnd(experience) {
+function interfaceBattleEnd(experience, gold) {
     let continueButton = document.createElement('button');
     continueButton.innerHTML = "Continue";
 
     let lootInfo = document.createElement('p');
-    lootInfo.innerHTML = `You win! +${experience} experience`;
+    lootInfo.innerHTML = `You win! +${experience} experience, +${gold} Gold <br> Loot:`;
 
     mainInterface.appendChild(lootInfo);
     mainInterface.appendChild(continueButton);

@@ -1,6 +1,9 @@
+function randomNum(min, max) {
+    return Math.round(Math.random() * (max - min + 1) + min);
+}
+
 // TASK LIST
 
-// INVENTORY    
 // GOLD VARIABLE
 // SHOP
 // LEVEL UP SYSTEM

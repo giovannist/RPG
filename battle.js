@@ -26,7 +26,7 @@ function playerTurn() {
             return;
         }
         enemyTurn()
-    }, 2000);
+    }, 1000);
 }
 
 function enemyTurn() {
@@ -43,15 +43,23 @@ function enemyTurn() {
             return;
         }
         playerTurn()
-    }, 2000);
+    }, 1000);
 }
 
 function battleEnd(winner) {
     if (winner === "Player") {
         enemy.health = enemy.maxHealth;
-        character.experience += enemy.experience;
+
+        // LOOT
+        let experience = randomNum(enemy.loot.minExperience, enemy.loot.maxExperience);
+        let gold = randomNum(enemy.loot.minGold, enemy.loot.maxGold);
+        character.gold += gold;
+        character.experience += experience;
+        //
+
+        character.checkIfLevelUp();
         updatePlayerInterface();
-        interfaceBattleEnd(enemy.experience);
+        interfaceBattleEnd(experience, gold);
     }
     else {
     }

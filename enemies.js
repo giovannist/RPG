@@ -1,11 +1,13 @@
 class BaseEnemy {
-    constructor(health, damage, name, experience) {
+    constructor(health, damage, name, loot) {
         this.health = health;
         this.maxHealth = health;
         this.damage = damage;
         this.name = name;
-        this.experience = experience;
+        this.loot = loot;
     }
 }
 
-const rat = new BaseEnemy(20, 5, "Rat", 2);
+const rat = new BaseEnemy(20, 5, "Rat", new RatLoot);
+
+const bigRat = new BaseEnemy(30, 8, "Big Rat", new BigRatLoot);

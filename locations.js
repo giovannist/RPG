@@ -37,6 +37,7 @@ class CityCenter extends BaseLocation {
         { name: "Tavern", click: () => { nextLocation("Tavern") } },
         { name: "Shop", click: () => { nextLocation("Shop") } },
         { name: "Forest", click: () => { nextLocation("Forest") } }
+
     ]
 }
 
@@ -44,17 +45,31 @@ class Forest extends BaseLocation {
     name = "Forest";
     description = "It's a Forest";
     options = [
-        { name: "City Center", click: () => { nextLocation("City Center") } }
+        { name: "City Center", click: () => { nextLocation("City Center") } },
+        { name: "Deep Forest", click: () => { nextLocation("Deep Forest") } }
     ]
     specifics = [
         { type: "Battle", text: "Find Creatures", enemies: rat }  //Type, Text, Enemies
     ]
 }
 
+class DeepForest extends BaseLocation {
+    name = "Deep Forest";
+    description = "Deeper than before"
+    options = [
+        { name: "Forest", click: () => { nextLocation("Forest") } }
+    ]
+    specifics = [
+        { type: "Battle", text: "Find MORE Creatures", enemies: bigRat }  //Type, Text, Enemies
+    ]
+}
+
+
 const tavern = new Tavern
 const shop = new Shop;
 const cityCenter = new CityCenter;
 const forest = new Forest;
+const deepForest = new DeepForest;
 
 function nextLocation(location) {
     switch (location) {
@@ -69,6 +84,9 @@ function nextLocation(location) {
             break;
         case "Forest":
             updateLocationInterface(forest.name, forest.description, forest.options, forest.specifics)
+            break;
+        case "Deep Forest":
+            updateLocationInterface(deepForest.name, deepForest.description, deepForest.options, deepForest.specifics)
             break;
         default:
             console.log("couldn't find location")

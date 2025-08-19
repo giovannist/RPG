@@ -7,10 +7,28 @@ class Character {
     equippedChestplate = null;
     health = 100;
     maxHealth = 100;
+    level = 1;
 
     experience = 0;
     maxExperience = 10;
 
+    gold = 0;
+
+    // Level Related
+    checkIfLevelUp() {
+        if (character.experience >= character.maxExperience) {
+            character.experience -= this.maxExperience;
+            this.levelUp();
+            this.checkIfLevelUp();
+        };
+    }
+    levelUp() {
+        character.level += 1;
+        character.maxHealth *= 1.2
+    }
+    //
+
+    // Equipment Related
     getEquipmentInfo() {
         console.log(this.equippedWeapon, this.equippedChestplate, this.health);
     }
@@ -38,6 +56,7 @@ class Character {
                 console.log("Not a valid item type, too bad!")
         }
     }
+    //
 }
 
 const character = new Character("Adventurer");
