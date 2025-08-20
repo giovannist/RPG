@@ -3,7 +3,6 @@ class Shop {
     randomizeShop(possibleItems) {
     }
 }
-
 class CityShop extends Shop {
     possibleItems = [lance, sword]
 }

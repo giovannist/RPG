@@ -60,6 +60,7 @@ function battleEnd(winner) {
         character.checkIfLevelUp();
         updatePlayerInterface();
         interfaceBattleEnd(experience, gold);
+
     }
     else {
     }

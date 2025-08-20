@@ -5,6 +5,7 @@ const interfacePlayerChestplate = document.getElementById('player-equipped-chest
 const interfacePlayerExperience = document.getElementById('player-experience');
 const interfacePlayerGold = document.getElementById('player-gold');
 const interfacePlayerCharacter = document.getElementById('player-character');
+const interfacePlayerLevel = document.getElementById('player-level');
 // Location Information
 const interfaceLocationCurrent = document.getElementById('current-location');
 const interfaceLocationDescription = document.getElementById('location-description')
@@ -20,7 +21,8 @@ function updatePlayerInterface() {
     interfacePlayerChestplate.innerHTML = `${character.equippedChestplate?.name ?? "None"}`
     interfacePlayerExperience.innerHTML = `${character.experience}/${character.maxExperience}`
     interfacePlayerGold.innerHTML = character.gold;
-    interfacePlayerCharacter.innerHTML = `${character.name}, Level ${character.level}`
+    interfacePlayerCharacter.innerHTML = character.name
+    interfacePlayerLevel.innerHTML = character.level;
 }
 
 
@@ -153,23 +155,32 @@ interfaceInventory.onclick = () => {
 
 function createInventoryInterface() {
     mainInterface.innerHTML = "";
-    let itemList = document.createElement('div');
 
     character.inventory.items.forEach(item => {
         let itemDivision = document.createElement('div');
         let itemInfo = document.createElement('span');
-        let equipButton = document.createElement('button')
+        let useButton = document.createElement('button');
+        itemInfo.innerHTML = `${item.name} x${item.quantity}`;
 
-        itemInfo.innerHTML = `${item.name} x${item.quantity}`
-        equipButton.innerHTML = "Equip"
-
-        equipButton.onclick = () => {
-            character.equipItem(item);
-            createInventoryInterface();
-            updatePlayerInterface();
+        if (item.type === "Weapon" || item.type === "Chestplate") {
+            useButton.innerHTML = "Equip";
+            useButton.onclick = () => {
+                character.equipItem(item);
+                updatePlayerInterface();
+                createInventoryInterface();
+            }
         }
+        else if (item.type === "Consumable") {
+            useButton.innerHTML = "Use";
+            useButton.onclick = () => {
+                item.use(item.amount);
+                updatePlayerInterface();
+                createInventoryInterface();
+            }
+        }
+
         itemDivision.appendChild(itemInfo);
-        itemDivision.appendChild(equipButton);
+        itemDivision.appendChild(useButton);
         mainInterface.appendChild(itemDivision);
     });
 }

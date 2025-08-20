@@ -51,10 +51,13 @@ const ratMeat = new RatMeat;
 
 
 // Consumables
-class healthPotion extends Consumable {
+class HealthPotion extends Consumable {
     amount = 20;
     use(amount) {
-        character.healHealth(amount);
+        if (character.health < character.maxHealth) {
+            character.healHealth(amount);
+            character.inventory.removeItem(healthPotion);
+        }
     }
 }
 //
@@ -80,4 +83,5 @@ class BigRatLoot {
 const sword = new Sword;
 const ironChestplate = new IronChestplate
 const lance = new Lance;
+const healthPotion = new HealthPotion;
 //

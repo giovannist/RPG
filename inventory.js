@@ -3,6 +3,7 @@ class Inventory {
         this.items = []
     }
 
+
     showItems() {
         console.log(this.items);
     }
@@ -18,6 +19,7 @@ class Inventory {
             this.items[itemIndex].quantity += 1;
         }
     }
+
 
     removeItem(itemToRemove) {
         let itemIndex = this.items.findIndex(pos => pos === itemToRemove)
